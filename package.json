@@ -14,7 +14,8 @@
     "build:es": "BABEL_ENV=es babel src --out-dir es",
     "build:umd": "mkdir -p dist && BABEL_ENV=es rollup -c -o dist/hyperscript-jsx.js",
     "build:umd:min": "mkdir -p dist && BABEL_ENV=es rollup -c | uglifyjs -c -m > dist/hyperscript-jsx.min.js",
-    "prepublish": "npm run clean && npm run lint && npm run build"
+    "prepublish": "npm run clean && npm run lint && npm run build",
+    "preversion": "npm run lint"
   },
   "repository": {
     "type": "git",
