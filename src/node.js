@@ -1,3 +1,5 @@
+import { hashToClassName } from './util';
+
 function appendChildren(el, children) {
   children.forEach((child) => {
     if (!child) {
@@ -43,8 +45,12 @@ export default (tag, attrs, ...children) => {
       if (value != null) {
         if (key === 'className') key = 'class';
 
-        if (key === 'class' && Array.isArray(value)) {
-          value = value.filter((value) => value).join(' ');
+        if (key === 'class') {
+          if (Array.isArray(value)) {
+            value = value.filter((value) => value).join(' ');
+          } else if (typeof value === 'object') {
+            value = hashToClassName(value);
+          }
         }
 
         el.setAttribute(key, value);

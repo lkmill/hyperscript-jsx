@@ -1,3 +1,5 @@
+import { hashToClassName } from './util';
+
 export default function h(tag, attrs, ...children) {
   if (typeof tag === 'function') {
     if (tag.prototype && tag.prototype.constructor && tag.prototype.render) {
@@ -24,8 +26,12 @@ export default function h(tag, attrs, ...children) {
       if (value != null && !(value instanceof Function)) {
         if (key === 'className') key = 'class';
 
-        if (key === 'class' && Array.isArray(value)) {
-          value = value.filter((value) => value).join(' ');
+        if (key === 'class') {
+          if (Array.isArray(value)) {
+            value = value.filter((value) => value).join(' ');
+          } else if (typeof value === 'object') {
+            value = hashToClassName(value);
+          }
         }
 
         str += ` ${key}="${value}"`;
