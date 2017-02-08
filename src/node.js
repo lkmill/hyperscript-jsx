@@ -42,19 +42,20 @@ export default (tag, attrs, ...children) => {
   if (attrs) {
     Object.keys(attrs).forEach((key) => {
       let value = attrs[key];
-      if (value != null) {
-        if (key === 'className') key = 'class';
 
-        if (key === 'class') {
-          if (Array.isArray(value)) {
-            value = value.filter((value) => value).join(' ');
-          } else if (typeof value === 'object') {
-            value = hashToClassName(value);
-          }
+      if (!value && value !== 0) return;
+
+      if (key === 'className') key = 'class';
+
+      if (key === 'class') {
+        if (Array.isArray(value)) {
+          value = value.filter((value) => value).join(' ');
+        } else if (typeof value === 'object') {
+          value = hashToClassName(value);
         }
-
-        el.setAttribute(key, value);
       }
+
+      el.setAttribute(key, value);
     });
   }
 
