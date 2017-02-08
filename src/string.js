@@ -41,13 +41,13 @@ export default function h(tag, attrs, ...children) {
 
   str += '>';
 
-  if (children.length) {
-    let child = children.shift();
+  while (children.length) {
+    const child = children.shift();
 
-    while (child) {
+    if (Array.isArray(child)) {
+      children.unshift(...child);
+    } else if (child != null && child !== false) {
       str += child;
-
-      child = children.shift();
     }
   }
 
