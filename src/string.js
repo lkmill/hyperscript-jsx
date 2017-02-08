@@ -1,5 +1,24 @@
 import { hashToClassName } from './util';
 
+const selfClosing = [
+  'area',
+  'base',
+  'br',
+  'col',
+  'command',
+  'embed',
+  'hr',
+  'img',
+  'input',
+  'keygen',
+  'link',
+  'meta',
+  'param',
+  'source',
+  'track',
+  'wbr',
+];
+
 export default function h(tag, attrs, ...children) {
   if (typeof tag === 'function') {
     if (tag.prototype && tag.prototype.constructor && tag.prototype.render) {
@@ -37,6 +56,11 @@ export default function h(tag, attrs, ...children) {
         str += ` ${key}="${value}"`;
       }
     });
+  }
+
+  if (selfClosing.includes(tag)) {
+    str += '/>';
+    return str;
   }
 
   str += '>';
