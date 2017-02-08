@@ -2,9 +2,7 @@ import { hashToClassName } from './util';
 
 function appendChildren(el, children) {
   children.forEach((child) => {
-    if (!child) {
-      return;
-    } else if (child instanceof Node) {
+    if (child instanceof Node) {
       el.appendChild(child);
     } else if (typeof child === 'string' || typeof child === 'number') {
       el.appendChild(document.createTextNode(child));
